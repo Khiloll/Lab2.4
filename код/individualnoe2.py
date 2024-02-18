@@ -2,23 +2,30 @@
 # -*- coding: utf-8 -*-
 
 
-def main():
-    elements = [-5, 2, -3, 4, 5, 6, -7, 8, 9]  # Пример списка из вещественных элементов
+def process_list(input_list):
+    # 1. Подсчет отрицательных элементов
+    neg_count = sum(1 for num in input_list if num < 0)
 
-    # 1. Номер минимального по модулю элемента списка
-    min_abs_idx = min(range(len(elements)), key=lambda i: abs(elements[i]))
-    print("Номер минимального по модулю элемента списка:", min_abs_idx)
+    # Находим минимальный элемент по модулю и его индекс
+    min_abs_value = min(map(abs, input_list))
+    min_abs_index = input_list.index(min_abs_value) if min_abs_value in input_list else input_list.index(-min_abs_value)
 
-    # 2. Сумма модулей элементов списка, расположенных после первого отрицательного элемента
-    first_negative_idx = next((i for i, x in enumerate(elements) if x < 0), None)
-    sum_abs_after_negative = sum(abs(x) for x in elements[first_negative_idx + 1 :] if x < 0)
-    print("Сумма модулей элементов списка после первого отрицательного элемента:", sum_abs_after_negative)
+    # 2. Вычисляем сумму модулей элементов после минимального по модулю элемента
+    sum_after_min = sum(abs(num) for num in input_list[min_abs_index+1:])
 
-    # Cжатие списка, удаление элементов в интервале [а, b] и заполнение оставшихся нулями
-    a, b = -4, 4  # пример значений интервала [a, b]
-    elements = [x if not (a <= x <= b) else 0 for x in elements]
-    print("Сжатый список:", elements)
+    # Замена отрицательных элементов и сортировка списка по возрастанию
+    modified_list = [num**2 if num < 0 else num for num in input_list]
+    modified_list.sort()
 
+    return neg_count, sum_after_min, modified_list
 
-if __name__ == "__main__":
-    main()
+# Ввод списка вещественных элементов
+input_list = [float(input(f"Введите элемент {i + 1}: ")) for i in range(10)]
+
+# Обработка списка
+neg_count, sum_after_min, sorted_list = process_list(input_list)
+
+print(f"Количество отрицательных элементов: {neg_count}")
+print(f"Сумма модулей элементов после минимального по модулю элемента: {sum_after_min}")
+print(f"Измененный и отсортированный список: {sorted_list}")
+

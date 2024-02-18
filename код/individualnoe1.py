@@ -2,19 +2,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-def main():
-    A = [5, 3, 6, -2, 9, 12, -7, 15, 6, 8]  # Пример списка A из 10 элементов
-    positive_multiples_of_3 = [num for num in A if num > 0 and num % 3 == 0]  # Выбираем положительные элементы, кратные 3
+def calculate_product_and_count(arr):
     product = 1
     count = 0
 
-    for num in positive_multiples_of_3:
-        product *= num  # Находим произведение положительных элементов, кратных 3
-        count += 1  # Считаем количество найденных элементов
+    for num in arr:
+        if num > 8 and num < 18 and num % 10 == 0:
+            product *= num
+            count += 1
 
-    print("Произведение положительных элементов, кратных 3:", product)
-    print("Количество положительных элементов, кратных 3:", count)
+    return product, count
 
+# Ввод списка А из 10 элементов
+A = [int(input(f"Введите элемент {i + 1}: ")) for i in range(10)]
 
-if __name__ == "__main__":
-    main()
+# Нахождение произведения элементов, удовлетворяющих условиям, и их количества
+result_product, result_count = calculate_product_and_count(A)
+
+print(f"Произведение элементов, больших 8, меньших 18 и кратных 10: {result_product}")
+print(f"Количество таких элементов: {result_count}")
